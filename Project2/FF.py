@@ -2,23 +2,10 @@ from math import exp
 from random import seed
 from random import random
 
-
-class FF:
-    # Initialize a network
-    def initialize_network(n_inputs, n_hidden, n_outputs):
-        network = list()
-        hidden_layer = [{'weights': [random() for i in range(n_inputs + 1)]} for i in range(n_hidden)]
-        network.append(hidden_layer)
-        output_layer = [{'weights': [random() for i in range(n_hidden + 1)]} for i in range(n_outputs)]
-        network.append(output_layer)
-        return network
-
-    def
-
-
 class Neuron:
     def __init__(self):
-        self.weight
+        self.weight = 0
+        self.value = 0
         self.func = ""
         self.layer = ""
         self.inputNodes = []
@@ -40,7 +27,7 @@ class Neuron:
     #     self.weights.append(random.random())
     #     self.historicalWeights.append(0)
 
-    def updateWeights(self, value):
+    #def updateWeights(self, value):
 
 
     def getWeight(self):
@@ -67,8 +54,11 @@ class Neuron:
     def getPastWeights(self):
         return self.pastWeights
 
+    def setValue(self, value):
+        self.value = value
+
     def setWeight(self, value):
-        self.Weight = value
+        self.weight = value
 
     def setFunc(self, value):
         self.func = value
@@ -109,24 +99,26 @@ class NN:
         self.outputNodes = []
         self.converged = False
 
-    def set
+        # Initialize a network
+
+    def initialize_network(self, n_inputs, n_hidden, n_outputs):
+
 
     def build_network(self):
         for x in self.inputs:
-            n = Neuron(value=x)
+            n = Neuron()
+            n.setValue(x)
             self.startingNodes.append(n)
 
         for x in self.hidden:
-            n = Neuron(value=x)
+            n = Neuron()
+            n.setValue(x)
             self.hiddenNodes.append(n)
-            for y in self.inputs:
-                n.inputNodes(self.startingNodes[y])
 
         for x in self.outputs:
-            n = Neuron(value=x)
+            n = Neuron()
+            n.setValue(x)
             self.outputNodes.append(n)
-            for y in self.hidden:
-                n.inputNodes(self.startingNodes[y])
 
     def connect_network(self):
         for x in self.startingNodes:
@@ -138,3 +130,6 @@ class NN:
 
         for x in self.outputNodes:
             x.setInputNodes(self.hiddenNodes)
+
+
+
