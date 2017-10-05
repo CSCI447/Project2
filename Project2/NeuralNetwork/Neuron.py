@@ -1,4 +1,4 @@
-from Project2.FeedForward import Connection
+from Project2.NeuralNetwork import Connection
 
 class Neuron:
     def __init__(self):

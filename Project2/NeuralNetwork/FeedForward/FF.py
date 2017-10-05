@@ -1,8 +1,9 @@
-from math import exp
-from random import seed
 from random import random
-from Project2.FeedForward.Neuron import Neuron
-from Project2.FeedForward.Connection import Connection
+
+from Project2.NeuralNetwork.Connection import Connection
+
+from Project2.NeuralNetwork.Neuron import Neuron
+
 
 class NN:
 

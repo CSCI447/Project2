@@ -1,10 +1,11 @@
-from Project2.FeedForward import Neuron
+from Project2.NeuralNetwork import Neuron
+
 
 class Connection:
     def __init__(self):
         weight = 0
         delta = 0
-        fromNeuron =  Neuron
+        fromNeuron = Neuron
 
     def getWeight(self):
         return self.weight
