@@ -1,9 +1,10 @@
 from random import random
 
-from Project2.NeuralNetwork.Connection import Connection
+from NeuralNetwork.Connection import Connection
 
-from Project2.NeuralNetwork.Neuron import Neuron
+from NeuralNetwork.Neuron import Neuron
 
+from NeuralNetwork.RBF import K_Means
 class NN:
 
     def __init__(self, input_values, gaussian_amount, output_nodes_amount, expected_output_values, answers, learnrate = 0.3, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
@@ -21,6 +22,7 @@ class NN:
         self.inputNodes = []
         self.hiddenNodes = []
         self.outputNodes = []
+        self.centroids = self.get_centroids(self.input_values, self.gaussian_amount)
         self.converged = False
 
         # Initialize a network
@@ -74,19 +76,24 @@ class NN:
             for c in neuron.getConnections():
                 c.setWeight = random.random()
 
-    def initializeSigma(self):
+    def get_centroids(self,input_values,k):
+        self.centroids = K_Means(input_values,k)
+        return self.centroids
 
+    def initializeSigma(self):
+        return
 
     def calculateDistance(self):
-
+        return
 
     def applyGaussian(self):
-
+        return
 
     def perceptronInput(self):
-
+        return
 
     def classifyInput(self):
-
+        return
 
     def calculateWeightedSum(self):
+        return

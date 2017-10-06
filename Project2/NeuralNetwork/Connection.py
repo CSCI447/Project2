@@ -1,4 +1,4 @@
-from Project2.NeuralNetwork import Neuron
+from NeuralNetwork import Neuron
 
 
 class Connection:
