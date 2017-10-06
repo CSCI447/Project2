@@ -4,8 +4,6 @@ import random
 
 class Neuron:
     def __init__(self):
-        self.sigma = 0.0
-        self.weight = 0.0
         self.connectionLeft = Connection()
         self.connectionRight = Connection()
 
@@ -13,6 +11,8 @@ class Connection:
     def __init__(self):
         self.neuronLeft = Neuron()
         self.neuronRight = Neuron()
+        self.sigma = 0.0#taylor update from UML, moved from Neuron class
+        self.weight = 0.0#taylor update from UML, moved from Neuron class
 
 class NN:
     def __init__(self, inputs, hidden_layers, hidden_nodes, outputs):
