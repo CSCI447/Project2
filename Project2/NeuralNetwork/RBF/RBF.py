@@ -6,7 +6,7 @@ from Project2.NeuralNetwork.Neuron import Neuron
 
 class NN:
 
-    def __init__(self, input_values, gaussain_amount, output_nodes_amount, expected_output_values, answers, learnrate = 0.3, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
+    def __init__(self, input_values, gaussian_amount, output_nodes_amount, expected_output_values, answers, learnrate = 0.3, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
         self.input_values = input_values
         self.hidden_layers_amount = 1
         self.gaussian_amount = gaussian_amount
@@ -67,9 +67,9 @@ class NN:
             # neuron.setNodeWeightsLength(len(neuron.getInputNodes))
 
     def initialize_weights(self):
-        for neuron in self.hiddenNodes:
-            for c in neuron.getConnections():
-                c.setWeight = random.random()
+        #for neuron in self.hiddenNodes:    #there's only one set of weights in RBF's between the hidden layer and the output
+         #   for c in neuron.getConnections():
+          #      c.setWeight = random.random()
         for neuron in self.outputNodes:
             for c in neuron.getConnections():
                 c.setWeight = random.random()
