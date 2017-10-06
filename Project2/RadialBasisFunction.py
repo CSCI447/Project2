@@ -1,5 +1,5 @@
 from NeuralNetwork import *
-from K_Means import *
+from NeuralNetwork.RBF.K_Means import *
 
 class RBF:
     def __init__(self):
