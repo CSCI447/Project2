@@ -1,4 +1,5 @@
-from NeuralNetwork import Connection
+from Project2.NeuralNetwork import Connection
+from math import exp
 
 class Neuron:
     def __init__(self):
@@ -34,8 +35,11 @@ class Neuron:
     def getError(self):
         return self.error
 
-    def getPastWeights(self):
-        return self.pastWeights
+    def getWeights(self):
+        weights = []
+        for c in self.connections:
+            weights.append(c.getWeight())
+        return weights
 
     def getConnections(self):
         return self.connections
