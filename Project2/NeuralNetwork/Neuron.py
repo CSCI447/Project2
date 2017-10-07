@@ -28,6 +28,9 @@ class Neuron:
     def getFunc(self):
         return self.func
 
+    def getValue(self):
+        return self.value
+
     def getLayer(self):
         return self.layer
 

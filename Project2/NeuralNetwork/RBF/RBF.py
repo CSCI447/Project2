@@ -1,5 +1,9 @@
 from random import random
 
+from numpy import linalg
+
+import math
+
 from NeuralNetwork.Connection import Connection
 
 from NeuralNetwork.Neuron import Neuron
@@ -25,6 +29,8 @@ class NN:
         self.outputNodes = []
         self.centroids = self.get_centroids(self.input_values, self.gaussian_amount)
         self.converged = False
+        self.batches = self.form_batches()
+        self.beta = 1.0
 
         # Initialize a network
 
@@ -36,12 +42,10 @@ class NN:
 
         for x in range(self.gaussian_amount):
             n = Neuron()
-            #n.setValue(x)
             self.hiddenNodes.append(n)
 
         for x in range(self.output_nodes_amount):
             n = Neuron()
-            #n.setValue(x)
             self.outputNodes.append(n)
 
     def connect_network(self):
@@ -78,23 +82,38 @@ class NN:
                 c.setWeight = random.random()
 
     def get_centroids(self,input_values,k):
-        self.centroids = K_Means(input_values,k).centroids
+        self.centroids = K_Means.K_Means(input_values,k).centroids
         return self.centroids
 
-    def initializeSigma(self):
+    def form_batches(self):
+        batch_size = 10
+        index = 0
+        for i in range(len(self.input_values)/batch_size):
+            batch = []
+            for j in range(batch_size):
+                batch.append(self.input_values[index])
+            self.batches.append(batch)
+        return self.batches
+
+    def forward_prop(self):
+        for i in self.batches:
+            for j in self.batches[i]:
+                for n in range(self.gaussian_amount):
+                    value = self.apply_gaussian(self.batches[i][j],self.centroids[n])
+                    self.hiddenNodes[n].setValue(value)
+
+    def calculate_distance(self,x,mu):
+        return linalg.norm(x-mu)
+
+    def apply_gaussian(self,x,mu):
+        phi = math.exp(-self.beta * math.pow(self.calculate_distance(x,mu),2))
+        return phi
+
+    def calculate_weighted_sum(self):
         return
 
-    def calculateDistance(self):
+    def calculate_error(self):
         return
 
-    def applyGaussian(self):
-        return
-
-    def perceptronInput(self):
-        return
-
-    def classifyInput(self):
-        return
-
-    def calculateWeightedSum(self):
+    def update_weights(self):
         return

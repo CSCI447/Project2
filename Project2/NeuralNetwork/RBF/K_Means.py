@@ -14,7 +14,7 @@ class K_Means:
     def form_dataset(self,input_values):
         data_point = Data_point()
         data_points = []
-        for i in input_values:
+        for i in range(input_values):
             data_point.coords = input_values[i]
             data_points.append(data_point)                                           #forms list of n dimensional data points
         return data_points
