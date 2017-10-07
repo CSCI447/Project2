@@ -5,6 +5,7 @@ from NeuralNetwork.Connection import Connection
 from NeuralNetwork.Neuron import Neuron
 
 from NeuralNetwork.RBF import K_Means
+
 class NN:
 
     def __init__(self, input_values, gaussian_amount, output_nodes_amount, expected_output_values, answers, learnrate = 0.3, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
@@ -77,7 +78,7 @@ class NN:
                 c.setWeight = random.random()
 
     def get_centroids(self,input_values,k):
-        self.centroids = K_Means(input_values,k)
+        self.centroids = K_Means(input_values,k).centroids
         return self.centroids
 
     def initializeSigma(self):
