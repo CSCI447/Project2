@@ -1,86 +1,21 @@
-import random
-import math
-import sys
 
-x_list = []
-dimensions = []
-infile = open(sys.argv[1], 'w')
-outfile = open(sys.argv[2], 'w')
-runs = int(sys.argv[3])  # num iterations for rb per dimension
-total_sets = int(sys.argv[4])
-all_outputs = []
-
-
-def reset_x_list():
-    global x_list
-    for x in x_list:
-        x_list.remove(x)
-    for x in range(total_sets):
-        x_list.append(x)
-
-
-def make_x_list(num):
-    global x_list
-    global outfile
-    global all_outputs
-
-    not_done = 1
-    i = 1
-
-    del dimensions[:]
-
-    val = random.choice(x_list)
-    dimensions.append(val)
-    #    x_list.remove(val)
-    while (not_done):
-        tmp = random.choice(x_list)
-        while (tmp == val):
-            tmp = random.choice(x_list)
-        val = tmp
-        if (i == num):
-            not_done = 0
-        else:
-            dimensions.append(tmp)
-            #            x_list.remove(tmp)
-            i += 1
+def evaluate(vector):
     rosenbrock = 0
-    i = 0
-    for i in range(len(dimensions) - 1):
-        rosenbrock += (((1 - dimensions[i]) ** 2) + \
-                       100 * ((dimensions[i + 1] - \
-                               (dimensions[i] ** 2)) ** 2))
-    s = str(rosenbrock)
-    all_outputs.append(rosenbrock)
-    outfile.write(s)
+    for i in range(len(vector) - 1):
+        rosenbrock += (((1 - vector[i]) ** 2) + 100 * ((vector[i + 1] - (vector[i] ** 2)) ** 2))
+    outfile.write(str(rosenbrock))
     outfile.write('\n')
 
-
 def main():
-    global runs
-    global dimensions
-    global infile
+    vector = []
     global outfile
-
-    reset_x_list()
-    for i in range(5):
-        for k in range(runs):
-            make_x_list(i + 2)
-            for j in range(len(dimensions)):
-                s = str(dimensions[j]) + " "
-                infile.write(s)
-            infile.write('\n')
-            del dimensions[:]
-    min_out = str(min(all_outputs))
-    max_out = str(max(all_outputs))
-    outfile.write(max_out)
-    outfile.write(" ")
-    outfile.write(min_out)
-    outfile.write("\n")
-
-
-#                for x in dimensions:
-#                dimensions.remove(x)
-#        reset_x_list()
-
+    outfile = open("6_dim_out.csv", 'w')
+    with open("6_dim.csv", 'r') as file:
+        for line in file:
+            currentline = line.split(",")
+            for dim in currentline:
+                vector.append(int(dim))
+            evaluate(vector)
+    file.close()
 
 if __name__ == '__main__': main()
