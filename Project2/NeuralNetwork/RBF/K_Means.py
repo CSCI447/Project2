@@ -1,4 +1,4 @@
-from NeuralNetwork.RBF import *
+from Project2.NeuralNetwork.RBF import *
 import random
 import numpy as np
 import math

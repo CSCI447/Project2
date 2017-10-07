@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4802c9e7-8afa-4907-af0d-01d6c59acc96" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project2/FeedForward.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/.idea/FeedForward.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Project2/FeedForwardBackprop.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/.idea/misc.xml" afterPath="$PROJECT_DIR$/Project2/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/.idea/modules.xml" afterPath="$PROJECT_DIR$/Project2/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Project2/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/FeedForwardBackprop.py" afterPath="$PROJECT_DIR$/Project2/FeedForwardBackprop.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork.py" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork/Neuron.py" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/Neuron.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork/RBF/RBF.py" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/RBF/RBF.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project2/NeuralNetwork/RBF/K_Means.py" afterPath="$PROJECT_DIR$/Project2/NeuralNetwork/RBF/K_Means.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,30 +17,6 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FF.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#25#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NeuralNetwork.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="17" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="RBF.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/RBF/RBF.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -61,14 +27,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Neuron.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/Neuron.py">
+      <file leaf-file-name="RadialBasisFunction.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project2/RadialBasisFunction.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding>
-                <marker date="1507341243374" expanded="true" signature="51:98" ph="..." />
-                <marker date="1507341243374" expanded="true" signature="75:98" ph="..." />
+                <element signature="e#0#27#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="K_Means.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/RBF/K_Means.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FF.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-21">
+              <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FeedForward.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Project2/FeedForward.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-17">
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding>
+                <element signature="e#1#21#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -76,16 +77,6 @@
       </file>
       <file leaf-file-name="Backprop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/Backprop.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Rosenbrock.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Project2/Rosenbrock.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -104,7 +95,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="modules.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="modules.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Project2/.idea/modules.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -116,16 +107,6 @@
       </file>
       <file leaf-file-name="Project2.iml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Project2/.idea/Project2.iml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Project2.iml~b3cf9e6ad25c98521b72b8340dc9ee8da41b789f" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Project2/.idea/Project2.iml~b3cf9e6ad25c98521b72b8340dc9ee8da41b789f">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -160,6 +141,7 @@
         <option value="$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py" />
         <option value="$PROJECT_DIR$/Project2/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/Project2/.idea/modules.xml" />
+        <option value="$PROJECT_DIR$/Project2/NeuralNetwork/RBF/K_Means.py" />
       </list>
     </option>
   </component>
@@ -531,16 +513,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Project2/RadialBasisFunction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/Connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
@@ -565,42 +537,6 @@
           <folding>
             <marker date="1507341243374" expanded="true" signature="51:98" ph="..." />
             <marker date="1507341243374" expanded="true" signature="75:98" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/RBF/RBF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="28" lean-forward="false" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/Backprop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -642,6 +578,78 @@
         <state relative-caret-position="119">
           <caret line="7" column="10" lean-forward="false" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/Backprop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/RBF/RBF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="28" lean-forward="false" selection-start-line="2" selection-start-column="28" selection-end-line="2" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/FeedForward/FF.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-21">
+          <caret line="49" column="16" lean-forward="false" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/RadialBasisFunction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/FeedForwardBackprop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/FeedForward.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-17">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#1#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Project2/NeuralNetwork/RBF/K_Means.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="28" lean-forward="true" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
