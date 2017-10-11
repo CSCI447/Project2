@@ -23,7 +23,7 @@ class NN:
         self.inputNodes = []                                    #list of nodes in the input layer
         self.hiddenLayers = []                                   #list of hidden Layers (because this can be 0 to 2), each of these lists contains a list of hiddenNodes (see build_network)
         self.outputNodes = []                                   #list of output nodes
-        self.network = list()
+        self.network = list()                                   #list of ALL the layers in the network
         self.converged = False                                  #?
 
 
@@ -61,8 +61,10 @@ class NN:
             for n in self.inputNodes:
                 c = Connection()
                 c.setFromNeuron(n)
+                c.setToNeuron(neuron)
                 connections.append(c)
             neuron.setConnections(connections)
+
             #neuron.setOutputNodes(self.outputNodes)
             #neuron.setInputNodes(self.inputNodes)
             #neuron.setNodeWeightsLength(len(neuron.getInputNodes))
@@ -72,6 +74,7 @@ class NN:
             for n in self.hiddenLayers[0]:
                 c = Connection()
                 c.setFromNeuron(n)
+                c.setToNeuron(neuron)
                 connections.append(c)
             neuron.setConnections(connections)
             # neuron.setInputNodes(self.hiddenNodes)
@@ -138,13 +141,13 @@ class NN:
                 new_weight = connection.getWeight + (self.learnRate * neuron.getError() * neuron.getValue())        #set weight like the function we talked about
                 connection.setWeight(new_weight)
 
-
-def train(NN, train, epochs, outputs):
+#train a neural network for a certain number of epochs
+def train(NN, train_data, epochs, outputs_amount):
         for epoch in range(epochs):
             sum_error = 0
-            for row in train:
+            for row in train_data:
                 output_values = NN.feedforward()
-                expected = [0 for i in range(outputs)]
+                expected = [0 for i in range(outputs_amount)]
                 expected[row[-1]] = 1
                 sum_error += sum([(expected[i] - output_values[i]) ** 2 for i in range(len(expected))])
                 NN.backprop(expected)

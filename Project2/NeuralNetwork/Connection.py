@@ -3,9 +3,10 @@ from NeuralNetwork import Neuron
 
 class Connection:
     def __init__(self):
-        weight = 0
-        delta = 0
-        fromNeuron = Neuron
+        self.weight = 0
+        self.delta = 0
+        self.fromNeuron = Neuron
+        self.toNeuron = Neuron
 
     def getWeight(self):
         return self.weight
@@ -25,3 +26,8 @@ class Connection:
     def setFromNeuron(self, value):
         self.fromNeuron = value
 
+    def getToNeuron(self):
+        return self.toNeuron
+
+    def setToNeuron(self, value):
+        self.toNeuron = value

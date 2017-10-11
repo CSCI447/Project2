@@ -7,6 +7,7 @@ class Neuron:
         self.func = ""              #sigmoid, linear
         self.layer = ""             #layer
         self.connections = []       #array of connections
+
         #self.inputNodes = []
         #self.outputNodes = []
         self.error = 0              #error calculated from backprop
