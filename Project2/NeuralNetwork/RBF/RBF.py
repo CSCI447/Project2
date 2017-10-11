@@ -53,7 +53,7 @@ class NN:
                 c = Connection()
                 c.setFromNeuron(n)
                 connections.append(c)
-            neuron.setConnections(connections)
+            neuron.setFromConnections(connections)
             #neuron.setOutputNodes(self.outputNodes)
             #neuron.setInputNodes(self.inputNodes)
             #neuron.setNodeWeightsLength(len(neuron.getInputNodes))
@@ -64,7 +64,7 @@ class NN:
                 c = Connection()
                 c.setFromNeuron(n)
                 connections.append(c)
-            neuron.setConnections(connections)
+            neuron.setFromConnections(connections)
             # neuron.setInputNodes(self.hiddenNodes)
             # neuron.setNodeWeightsLength(len(neuron.getInputNodes))
 
@@ -73,7 +73,7 @@ class NN:
          #   for c in neuron.getConnections():
           #      c.setWeight = random.random()
         for neuron in self.outputNodes:
-            for c in neuron.getConnections():
+            for c in neuron.getFromConnections():
                 c.setWeight = random.random()
 
     def get_centroids(self,input_values,k):

@@ -6,7 +6,8 @@ class Neuron:
         self.value = 0              #output value
         self.func = ""              #sigmoid, linear
         self.layer = ""             #layer
-        self.connections = []       #array of connections
+        self.fromConnections = []       #array of connections coming from previous layer
+        self.toConnections = []      #array of connections coming from next layer
 
         #self.inputNodes = []
         #self.outputNodes = []
@@ -36,17 +37,23 @@ class Neuron:
     def getError(self):
         return self.error
 
-    def getWeights(self):
+    def getFromWeights(self):
         weights = []
-        for c in self.connections:
+        for c in self.fromConnections:
             weights.append(c.getWeight())
         return weights
 
-    def getConnections(self):
-        return self.connections
+    def getFromConnections(self):
+        return self.fromConnections
 
-    def setConnections(self, value):  #current activation value of node
-        self.connections = value
+    def setFromConnections(self, value):  #current activation value of node
+        self.fromConnections = value
+
+    def getToConnections(self):
+        return self.toConnections
+
+    def setToConnections(self, value):  # current activation value of node
+        self.toConnections = value
 
     def setValue(self, value):
         self.value = value
@@ -72,7 +79,7 @@ class Neuron:
     def activate(self, weights, inputs):  #caluculate weights * inputs=
         activation = weights[-1]
         for i in range(len(weights) - 1):
-            activation += weights[i] * inputs[i]
+            activation += weights[i] * int(inputs[i])
         return activation
 
     def transfer_derivative(self, output):      #currently output is the value of the node

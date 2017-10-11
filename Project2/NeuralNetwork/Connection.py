@@ -1,10 +1,10 @@
-from NeuralNetwork import Neuron
+from Project2.NeuralNetwork import Neuron
 
 
 class Connection:
     def __init__(self):
-        self.weight = 0
-        self.delta = 0
+        self.weight = 0.0
+        self.delta = 0.0
         self.fromNeuron = Neuron
         self.toNeuron = Neuron
 
