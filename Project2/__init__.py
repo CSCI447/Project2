@@ -25,4 +25,4 @@ with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcs
         else:
             expectedOutputTestingArray.append(row)
 
-rbf = NN(inputTrainingArray,3,1,expectedOutputTrainingArray)
+rbf = NN(inputTrainingArray,5,1,expectedOutputTrainingArray)

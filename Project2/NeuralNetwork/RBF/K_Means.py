@@ -38,7 +38,7 @@ class K_Means:
                 shift = clusters[i].update(lists[i])                                 #calculate delta of the centroid's position
                 print("Cluster " + str(i + 1) + " has " + str(len(lists[i])) + " data points with centroid " + str(clusters[i].centroid.coords))
                 biggest_shift = max(biggest_shift, shift)                            #keep track of the biggest change
-            print("-----------------------------------------------")
+            print("-------------------------------------------------")
             if biggest_shift < self.cutoff:                                          #if the centroids have stopped moving then we have convergence
                 break
         return clusters
@@ -59,21 +59,23 @@ class K_Means:
 
 class Cluster:
     def __init__(self, centroid):
-        self.points = []                                                         #points belonging to this cluster
-        self.centroid = centroid #self.calculate_centroid()                                     #center point of the cluster
+        self.points = []                                                             #points belonging to this cluster
+        self.centroid = centroid                                                     #center point of the cluster
 
     def update(self, points):                                                        #returns the shift of the centroid after updating
         old_centroid = self.centroid
         self.points = points
-        self.centroid = self.calculate_centroid()
-        new_centroid = self.centroid
-        shift = self.get_centroids_distance(old_centroid, new_centroid)
+        if not self.points:                                                          # check if cluster has no points in it, set shift to 0 if so
+            shift = 0
+        else:
+            self.centroid = self.calculate_centroid()                                #otherwise recalculate the centroid of the cluster given the points
+            shift = self.get_centroids_distance(old_centroid, self.centroid)         #calculate the shift in position from the previous centroid to the current centroid
         return shift
 
-    def get_centroids_distance(self,a,b):                                                      #euclidean distance between two n-dimensional centroids
+    def get_centroids_distance(self,a,b):                                            #euclidean distance between two n-dimensional centroids
         difference = 0.0
         for i in range(a.n):
-            squareDifference = pow(((float(a.coords[i])) - b.coords[i]), 2)
+            squareDifference = pow(((a.coords[i]) - b.coords[i]), 2)
             difference += squareDifference
         distance = math.sqrt(difference)
         return distance
@@ -81,12 +83,12 @@ class Cluster:
     def calculate_centroid(self):
         numPoints = len(self.points)
         dim_array = []
-        for i in range(self.points[0].n):  #for n dimensions
+        for i in range(self.points[0].n):                                            #for n dimensions
             sum = 0
-            for j in range(len(self.points)):  #all points in the cluster
+            for j in range(numPoints):                                               #all points in the cluster
                 sum  += self.points[j].coords[i]
-            dim_array.append(int(sum/numPoints))   #list of all coordinates in the cluster                                                    #reformat so all dimensions are together
-        centroid_coords = [dList for dList in dim_array]              #mean for each dimension
+            dim_array.append(int(sum/numPoints))                                     #sum all dimensions together and then get average
+        centroid_coords = [dList for dList in dim_array]                             #add each mean to coordinates
         return Data_point(centroid_coords)
 
 class Data_point:
@@ -94,7 +96,7 @@ class Data_point:
         self.coords = self.create_int_array(coords)
         self.n = len(coords)                                                        #dimension
 
-    def create_int_array(self,coords):
+    def create_int_array(self,coords):                                              #convert string to list of integers
         coordinate_list =[]
         for i in range(len(coords)):
             coordinate = int(coords[i])

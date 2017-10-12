@@ -6,11 +6,10 @@ import math
 
 from Project2.NeuralNetwork.RBF.K_Means import K_Means
 
-#import NeuralNetwork.Neuron
+from Project2.NeuralNetwork.Neuron import Neuron
 
-#import NeuralNetwork.Connection
+from Project2.NeuralNetwork.Connection import Connection
 
-#from Project2.NeuralNetwork.RBF import K_Means
 
 class NN:
 
@@ -32,9 +31,9 @@ class NN:
         self.outputNodes = []
         self.centroids = self.get_centroids(input_values, self.gaussian_amount)
         self.converged = False
-        self.batches = self.form_batches()
         self.beta = 1.0
-        self.network = self.build_network(self)
+        self.network = self.build_network()
+        self.connections = []
         self.weighted_sum = 0
         self.squared_error = 0
 
@@ -46,10 +45,10 @@ class NN:
         partition = len(input) * 0.8
         for i in range(len(input)):
             if i < partition:
-                ex = Example(input[i],output[i])
+                ex = Example(input[i],output[i][0])
                 self.training.append(ex)
             elif i >= partition:
-                ex = Example(input[i], output[i])
+                ex = Example(input[i], output[i][0])
                 self.testing.append(ex)
         return self.training, self.testing
 
@@ -66,7 +65,7 @@ class NN:
         for x in range(self.output_nodes_amount):
             n = Neuron()
             self.outputNodes.append(n)
-        self.connect_network(self)
+        self.connect_network()
 
     def connect_network(self):
         # for x in self.inputNodes:
@@ -92,41 +91,26 @@ class NN:
             neuron.setConnections(connections)
             # neuron.setInputNodes(self.hiddenNodes)
             # neuron.setNodeWeightsLength(len(neuron.getInputNodes))
-        self.initialize_weights(self)
+        self.initialize_weights()
 
     def initialize_weights(self):
-        #for neuron in self.hiddenNodes:    #there's only one set of weights in RBF's between the hidden layer and the output
-         #   for c in neuron.getConnections():
-          #      c.setWeight = random.random()
-        for neuron in self.outputNodes:
-            for c in neuron.getConnections():
-                c.setWeight = random.random()
+        for c in self.connections:
+            c.setWeight(random.random())
 
     def get_centroids(self,input_values,k):
         self.centroids = K_Means(input_values,k).get_centroids()
         return self.centroids
 
-    def form_batches(self):
-        batch_size = 10
-        index = 0
-        for i in range(len(self.training)/batch_size):
-            batch = []
-            for j in range(batch_size):
-                batch.append(self.training[index])
-            self.batches.append(batch)
-        return self.batches
-
     def forward_prop(self):
-        for i in self.batches:
-            for j in self.batches[i]:
-                for n in range(self.gaussian_amount):
-                    value = self.apply_gaussian(self.batches[i][j],self.centroids[n]) #activation
-                    self.hiddenNodes[n].setValue(value)
-                self.calculate_weighted_sum(self)
-                while self.calculate_error(self,batches[i],[j]) < self.threshold:
-                    self.update_weights()
-                print('Predicted = ' + self.weighted_sum)
-                print('Actual = ' + self.batches[i][j].output)
+        for i in self.training:
+             for n in range(self.gaussian_amount):
+                value = self.apply_gaussian(self.training[i],self.centroids[n]) #activation
+                self.hiddenNodes[n].setValue(value)
+             self.calculate_weighted_sum(self)
+             while self.calculate_error(self,training[i]) < self.threshold:
+                self.update_weights()
+             print('Predicted = ' + self.weighted_sum)
+             print('Actual = ' + self.batches[i][j].output)
 
     def calculate_distance(self,x,mu):
         return linalg.norm(x-mu)
@@ -161,5 +145,12 @@ class NN:
 
 class Example():
     def __init__(self, input, output):
-        self.input = input
-        self.out = output
+        self.input = self.create_int_array(input)
+        self.out = int(output)
+
+    def create_int_array(self,input):                                              #convert string to list of integers
+        coordinate_list =[]
+        for i in range(len(input)):
+            coordinate = int(input[i])
+            coordinate_list.append(coordinate)
+        return coordinate_list
