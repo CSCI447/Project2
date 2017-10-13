@@ -46,7 +46,7 @@ class Neuron:
         return self.connections
 
     def setConnections(self, value):  #current activation value of node
-        self.connections = value
+        self.connections.append(value)
 
     def setValue(self, value):
         self.value = value

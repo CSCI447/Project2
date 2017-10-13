@@ -3,26 +3,20 @@
 
 from Project2.NeuralNetwork.RBF.RBF import NN
 import csv
-inputTrainingArray = []
-inputTestingArray = []
-expectedOutputTrainingArray = []
-expectedOutputTestingArray = []
+inputArray = []
+expectedOutputArray = []
+
 with open('NeuralNetwork/Data/2_dim.csv', 'r', encoding='utf-8') as inputcsvfile:
     csv_input = csv.reader(inputcsvfile, delimiter=",")
-    i = 0
     for row in csv_input:
-        if(i < 80):   # training is 80%
-            inputTrainingArray.append(row)
-        else:
-            inputTestingArray.append(row)
-        i += 1
+        inputArray.append(row)
+
 with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcsvfile:
     csv_output = csv.reader(outputcsvfile, delimiter=",")
-    i = 0
     for row in csv_output:
-        if(i < 80):
-            expectedOutputTrainingArray.append(row)
-        else:
-            expectedOutputTestingArray.append(row)
+        expectedOutputArray.append(row)
 
-rbf = NN(inputTrainingArray,5,1,expectedOutputTrainingArray)
+
+rbf = NN(inputArray,expectedOutputArray,5,1)
+
+rbf.main()
