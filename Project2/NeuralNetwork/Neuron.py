@@ -1,4 +1,4 @@
-from Project2.NeuralNetwork import Connection
+#from . import Connection
 from math import exp
 
 class Neuron:
@@ -43,7 +43,7 @@ class Neuron:
             weights.append(c.getWeight())
         return weights
 
-    def getFromConnections(self):
+    def getFromConnection(self):
         return self.fromConnections
 
     def setFromConnections(self, value):  #current activation value of node
@@ -76,11 +76,15 @@ class Neuron:
     def sigmoid(self, value):
         return 1.0 / (1.0 + exp(-value))
 
+    def linear(self, value):
+        return value
+
     def activate(self, weights, inputs):  #caluculate weights * inputs=
-        activation = weights[-1]
-        for i in range(len(weights) - 1):
+        activation = 0
+        for i in range(len(weights)):
             activation += weights[i] * int(inputs[i])
         return activation
 
     def transfer_derivative(self, output):      #currently output is the value of the node
         return output * (1.0 - output)
+

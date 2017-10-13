@@ -1,13 +1,13 @@
 import random
 import math
 
-from Project2.NeuralNetwork.Connection import Connection
+from .. Connection import Connection
 
-from Project2.NeuralNetwork.Neuron import Neuron
+from .. Neuron import Neuron
 
 
 class NN:
-    def __init__(self, input_values, expected_output_values, hidden_layers_amount, hidden_nodes_amount, output_nodes_amount, learnrate=0.3, threshold=1, momentum=0.5, maximum=0, minimum=1000):
+    def __init__(self, input_values, expected_output_values, hidden_layers_amount, hidden_nodes_amount, output_nodes_amount, learnrate=0.1, threshold=1, momentum=0.5, maximum=0, minimum=1000):
         self.input_values = input_values  # values from training data
         self.hidden_layers_amount = hidden_layers_amount  # number of hidden layers
         self.hidden_nodes_amount = hidden_nodes_amount  # number of nodes in hidden layer
@@ -28,33 +28,33 @@ class NN:
 
     # Build network structure (layers and nodes)
     def build_network(self):
-        for x in range(len(self.input_values)):
+        for input_neuron in range(len(self.input_values[0])):               #added [0] because self.input_values = 100, not 2
             n = Neuron()
             self.inputNodes.append(n)
 
-        for x in range(self.hidden_layers_amount):
-            hiddenNodes = []
-            for x in range(self.hidden_nodes_amount):
+        for hidden_neuron in range(self.hidden_layers_amount):
+            hidden_nodes = []
+            for x in range(self.hidden_nodes_amount):                       #currently only 1 hidden layer
                 n = Neuron()
-                hiddenNodes.append(n)
-                self.hiddenLayers.append(hiddenNodes)
-            self.network.append(self.hiddenLayers[x])
+                hidden_nodes.append(n)
+                self.hiddenLayers.append(n)                                 #TODO only appending 1 node at a time, may need to be changed
+            self.network.append(hidden_nodes)                               #confirmed correct number of nodes in network
 
-        for x in range(self.output_nodes_amount):
+        for output_neuron in range(self.output_nodes_amount):
             n = Neuron()
             self.outputNodes.append(n)
-        self.network.append(self.outputNodes)
+        #self.network.append(self.outputNodes)
 
     # Connect the above structure by linking the nodes in the layers correctly
     def connect_network(self):
         # for x in self.inputNodes:
         #     x.setOutputNodes(self.hiddenNodes)  #prob come back and init more stuff
-
-        for neuron in self.hiddenLayers[0]:
+        for neuron in self.hiddenLayers:                             #Maybe would work with self.network[0]
+            k = 0
             for n in self.inputNodes:
                 c = Connection()
                 c.setFromNeuron(n)
-                c.setToNeuron(neuron)
+                c.setToNeuron(neuron)                                #TODO very much only for 1 hidden layer!  Needs to be reworked in a big way!!!!
                 self.connections.append(c)
             #neuron.setFromConnections(connections)
 
@@ -64,7 +64,7 @@ class NN:
 
         for neuron in self.outputNodes:
             #outputConnections = []
-            for n in self.hiddenLayers[0]:
+            for n in self.hiddenLayers:
                 c = Connection()
                 c.setFromNeuron(n)
                 c.setToNeuron(neuron)
@@ -76,27 +76,68 @@ class NN:
     # Initialize weights for all layers except input layer (because it doesn't connect back to anything, and thus has no weight)
     def initialize_weights(self):
         for c in self.connections:
-            c.setWeight(random.random())
+            rand = random.random()
+            c.setWeight(rand)
             # for neuron in self.outputNodes:
             #     for c in neuron.getConnections():
             #         c.setWeight = random.random()
 
+
     # Sets value of each node to weighted sum of connections to neurons in the layer above, processed with sigmoid funciton
     def feedforward(self, row):
-        for i,value in enumerate(row):
-            self.inputNodes[i].setValue(value)
-        previous_inputs = row
-        for layer in self.network:
-            inputs_to_layer = []
-            for neuron in layer:  # loop through the hidden layer nodes
-                weights = []
-                for connection in self.connections:
-                    if connection.getToNeuron() == neuron:
-                        weights.append(connection.getWeight())
-                activation = neuron.activate(weights, previous_inputs)  # sum of inconming connections * weights
-                neuron.setValue(neuron.sigmoid(activation))  # perform sigmoid on activation summation                                    #neuron['output'] = activation.sigmoid(activation)
-                inputs_to_layer.append(neuron.getValue())
-            previous_inputs = inputs_to_layer
+        i = 0
+        for neuron in self.inputNodes:          #set values from input nodes
+            neuron.setValue(row[i])
+            #print(neuron.getValue())
+            i += 1
+
+        for neuron in self.hiddenLayers:
+            weights = []
+            values = []
+            for connection in self.connections:                                 #iterate to get wieghts and values=
+                if connection.getToNeuron() == neuron:
+                    weights.append(connection.getWeight())
+                    #print(connection.getWeight())
+                    values.append(connection.getFromNeuron().getValue())
+                    #print(connection.getFromNeuron().getValue())
+            activation = neuron.activate(weights, values)
+            neuron.setValue(neuron.sigmoid(activation))  # perform sigmoid on activation summation
+            #print(neuron.getValue())
+
+        for neuron in self.outputNodes:
+            weights2 = []
+            values2 = []
+            for connection in self.connections:
+                if connection.getToNeuron() == neuron:
+                    weights2.append(connection.getWeight())
+                    #print(connection.getWeight())
+                    values2.append(connection.getFromNeuron().getValue())
+                    #print(connection.getFromNeuron().getValue())
+            activation = neuron.activate(weights, values)
+            #print(neuron.linear(activation))
+            neuron.setValue(neuron.linear(activation))                                 #TODO all sigmoid baby, update when ready
+
+        return self.outputNodes[0].getValue()
+
+
+
+        # k = 1                                                       #keeps track of what layers we are on=
+        # for layer in self.network:                                  #currently 2 layers
+        #     inputs_to_layer = []
+        #     for neuron in layer:                                    # loop through the hidden layer nodes
+        #         weights = []
+        #         for connection in self.connections:
+        #             if connection.getToNeuron() == neuron:
+        #                 weights.append(connection.getWeight())
+        #         #print(neuron.getValue())
+        #         activation = neuron.activate(weights, neuron.getValue())  # sum of inconming connections * weights
+        #         if (k < self.network.__len__()):
+        #             neuron.setValue(neuron.sigmoid(activation))  # perform sigmoid on activation summation                                    #neuron['output'] = activation.sigmoid(activation)
+        #         else:
+        #             neuron.setValue(neuron.linear(activation))
+        #         inputs_to_layer.append(neuron.getValue())           #is append the correct function?
+        #     previous_inputs = inputs_to_layer
+        #     k += 1
 
         # final_outputs = []
         # for neuron in self.outputNodes:
@@ -108,48 +149,66 @@ class NN:
         #     neuron.setValue(neuron.sigmoid(activation))
         #     final_outputs.append(neuron.getValue())
 
-        return previous_inputs  # this needs to return the output of the output layer
+        #return output_values  # this needs to return the output of the output layer
 
     # Determines errors of neurons, then update weights based on these errors
-    def backprop(self, expected):
-        self.update_error_output(expected)
+    def backprop(self, out_row):
+        self.update_error_output(out_row)
         self.update_weights_output()
 
         self.update_error_hidden()
+        self.update_weights_hidden()
 
-    def update_error_output(self, expected):
+    def update_error_output(self, out_row):
         for neuron in self.outputNodes:  # for every neuron in the outputNodes
-            unprocessed_error = int(expected) - neuron.getValue()  # get error w/o derivative
+            unprocessed_error = int(self.expected_output_values[out_row][0]) - neuron.getValue()  # get error w/o derivative
+            print(unprocessed_error)
             error_w_pd = unprocessed_error * neuron.transfer_derivative(neuron.getValue())  # get error w derivative
+            print(error_w_pd)
             neuron.setError(error_w_pd)  # set as error
-
-
-
-    def update_error_hidden(self):
-        # hidden layer error = (weight_k * error_j) * transfer_derivative(output)
-        error_w_pd = 0
-        for neuron in self.hiddenLayers[0]:  # for every neuron in hidden nodes
-            #update errors for each connection
-            weight = 0.0
-            for connect in self.connections:  # for all the connections to that neuron
-                if connect.getFromNeuron() == neuron:
-                    weight = connect.getWeight()
-                    unprocessed_error = connect.getToNeuron().getError() * weight  # start at first hidden node, iterate over connections, sum with error and connection weights
-                    error_w_pd += unprocessed_error * neuron.transfer_derivative(neuron.getValue())
-            neuron.setError(error_w_pd)
-            #Update weights after error has been updated
-            for connect in self.connections:  # for all connections to that neuron
-                if connect.getFromNeuron() == neuron:
-                    new_weight = connect.getWeight() + (self.learnRate * connect.getToNeuron().getError() * neuron.getValue())  # set weight like the function we talked about
-                    connect.setWeight(new_weight)
 
     def update_weights_output(self):
         for neuron in self.outputNodes:  # for all neurons in outputNodes
             for connection in self.connections:  # for all connections to that neuron
                 if connection.getToNeuron() == neuron:
+                    # print("update output")
+                    # print(connection.getWeight())
+                    # print('learn_rate=%f' % (self.learnRate))
+                    # print('error=%f' % (connection.getToNeuron().getError()))
+                    # print('value=%f' % (neuron.getValue()))
                     new_weight = connection.getWeight() + (self.learnRate * connection.getToNeuron().getError() * neuron.getValue())  # set weight like the function we talked about
+                    #print(new_weight)
                     connection.setWeight(new_weight)
+                    #print(connection.getWeight())
 
+    def update_error_hidden(self):
+        # hidden layer error = (weight_k * error_j) * transfer_derivative(output)
+        error_w_pd = 0
+        for neuron in self.hiddenLayers:  # for every neuron in hidden nodes
+            #update errors for each connection
+            weight = 0.0
+            for connect in self.connections:  # for all the connections to that neuron
+                if connect.getFromNeuron() == neuron:
+                    weight = connect.getWeight()
+                    error = connect.getToNeuron().getError()
+                    unprocessed_error = error * weight  # start at first hidden node, iterate over connections, sum with error and connection weights
+                    error_w_pd += unprocessed_error * neuron.transfer_derivative(neuron.getValue())
+            neuron.setError(error_w_pd)
+            #Update weights after error has been updated
+
+    def update_weights_hidden(self):
+        for neuron in self.hiddenLayers:
+            for connect in self.connections:  # for all connections to that neuron
+                if connect.getToNeuron() == neuron:
+                    # print("update hidden")
+                    # print(connect.getWeight())
+                    # print('learn_rate=%f' % (self.learnRate))
+                    # print('error=%f' % (connect.getToNeuron().getError()))
+                    # print('value=%f' % (neuron.getValue()))
+                    new_weight = connect.getWeight() + (self.learnRate * connect.getToNeuron().getError() * neuron.getValue())  # set weight like the function we talked about
+                    #print(new_weight)
+                    connect.setWeight(new_weight)
+                    #print(connect.getWeight())
 
     def initialize(self):
         self.build_network()
@@ -162,24 +221,29 @@ class NN:
             sum_error = 0
             for i, row in enumerate(self.input_values):
                 output_values = self.feedforward(row)
-                #expected = [0 for i in range(outputs_amount)]
-                #expected[row[-1]] =
-                for j in range(len(self.expected_output_values)):
-                    sum_error += sum([(float(self.expected_output_values[j][0]) - output_values[0]) ** 2])
-                #sum_error += sum([(int(self.expected_output_values[i][0]) - output_values[i]) ** 2 for i in range(len(self.expected_output_values))])
-                self.backprop(self.expected_output_values[i][0])
-            #print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
-            print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
+                #print(row)
+                self.backprop(i)
+
+            row2 = ['5', '5']
+            output = self.feedforward(row2)
+
+            error = (40016 - output)
+
+            print("new epoc")
 
 
-        # class Activation:       #currently implementing activation in Neuron class, may change down the road
-        #     def __init__(self):
-        #
-        #     def sigmoid(self, value):
-        #         return 1.0 / (1.0 + exp(-value))
-        #
-        #     def activate(self, weights, current_layer):
-        #         activation = weights[-1]
-        #         for i in range(len(weights) - 1):
-        #             activation += weights[i] * current_layer[i]
-        #         return activation
+
+
+
+            # for i, row in enumerate(self.input_values):
+            #     output_values = self.feedforward(row)               #magic
+            #     #print(output_values)
+            #     #expected = [0 for i in range(outputs_amount)]
+            #     #expected[row[-1]] =
+            #     # for j in range(len(self.expected_output_values)):
+            #     #     sum_error += sum([(float(self.expected_output_values[j][0]) - output_values[0]) ** 2])
+            #     #sum_error += sum([(int(self.expected_output_values[i][0]) - output_values[i]) ** 2 for i in range(len(self.expected_output_values))])
+            #     self.backprop(self.expected_output_values[i][0])
+            # #print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
+            # print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
+
