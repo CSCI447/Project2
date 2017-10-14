@@ -3,7 +3,7 @@ from math import exp
 
 class Neuron:
     def __init__(self):
-        self.value = 0              #output value
+        self.value = 0.0              #output value
         self.func = ""              #sigmoid, linear
         self.layer = ""             #layer
         self.fromConnections = []       #array of connections coming from previous layer
@@ -79,12 +79,24 @@ class Neuron:
     def linear(self, value):
         return value
 
-    def activate(self, weights, inputs):  #caluculate weights * inputs=
+    def hiddenActivate(self, weights, inputs):  #caluculate weights * inputs=
         activation = 0
         for i in range(len(weights)):
-            activation += weights[i] * int(inputs[i])
+            print("activation input hidden", weights[i])
+            activation += weights[i] * float(inputs[i])
+        return activation
+    def outputActivate(self, weights, inputs):  #caluculate weights * inputs=
+        activation = 0
+        for i in range(len(weights)):
+            print("activation input output", weights[i])
+            float_input = float(inputs[i])
+            float_weight = weights[i]
+            activation += float_weight * float_input
         return activation
 
     def transfer_derivative(self, output):      #currently output is the value of the node
         return output * (1.0 - output)
+
+    def linear_derivative (self ):
+        return 1
 

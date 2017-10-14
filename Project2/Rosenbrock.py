@@ -6,89 +6,40 @@
 import random
 import math
 import sys
+import csv
 
-x_list = []
-dimensions = []
-infile = open(sys.argv[1], 'w')
-outfile = open(sys.argv[2], 'w')
-runs = int(sys.argv[3])  # num iterations for rb per dimension
-total_sets = int(sys.argv[4])
-all_outputs = []
+def generate_input_list(dimensions, min_value, max_value, amount):
+    value_list = []
+    rand = 0
+    for x in range(amount):
+        value_list.append([])
+        for y in range(dimensions):
+            rand = random.randint(min_value,max_value)
+            value_list[x].append(rand)
+    dim_str = str(dimensions)
+    with open("../"+dim_str+'_dim_input.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        csvWriter = csv.writer(csvfile, delimiter=',')
+        for row in value_list:
+            csvWriter.writerow(row)
+    return value_list
 
-
-def reset_x_list():
-    global x_list
-    for x in x_list:
-        x_list.remove(x)
-    for x in range(total_sets):
-        x_list.append(x)
-
-
-def make_x_list(num):
-    global x_list
-    global outfile
-    global all_outputs
-
-    not_done = 1
-    i = 1
-
-    del dimensions[:]
-
-    val = random.choice(x_list)
-    dimensions.append(val)
-    #    x_list.remove(val)
-    while (not_done):
-        tmp = random.choice(x_list)
-        while (tmp == val):
-            tmp = random.choice(x_list)
-        val = tmp
-        if (i == num):
-            not_done = 0
-        else:
-            dimensions.append(tmp)
-            #            x_list.remove(tmp)
-            i += 1
-    rosenbrock = 0
-    i = 0
-    for i in range(len(dimensions) - 1):
-        rosenbrock += (((1 - dimensions[i]) ** 2) +
-                       100 * ((dimensions[i + 1] -
-                               (dimensions[i] ** 2)) ** 2))
-    s = str(rosenbrock)
-    all_outputs.append(rosenbrock)
-    outfile.write(s)
-    outfile.write('\n')
-
-
-def main():
-    global runs
-    global dimensions
-    global infile
-    global outfile
-
-    reset_x_list()
-    for i in range(5):
-        for k in range(runs):
-            make_x_list(i + 2)
-            for j in range(len(dimensions)):
-                s = str(dimensions[j]) + " "
-                infile.write(s)
-            infile.write('\n')
-            del dimensions[:]
-    min_out = str(min(all_outputs))
-    max_out = str(max(all_outputs))
-    outfile.write(max_out)
-    outfile.write(" ")
-    outfile.write(min_out)
-    outfile.write("\n")
-
-def rb_test(nums):
-    rosenbrock = 0
-    for i in range(len(nums)-1):
-        rosenbrock += (((1-nums[i])**2) + \
-                       100*((nums[i+1] - \
-                       (nums[i]**2))**2))
-    return rosenbrock
-
-
-#if __name__ == '__main__': main()
+def generate_output_list(input_list):
+    dimensions = len(input_list[0])
+    rosenbrock_output = []
+    rosenbrock_values = []
+    output = []
+    for i,x in enumerate(input_list):
+        rosenbrock = 0
+        rosenbrock_output.append([])
+        for dim in range(len(x)-1):
+            rosenbrock = (((1 - x[dim]) ** 2) + 100 * ((x[dim+1] - (x[dim] ** 2)) ** 2))
+            rosenbrock_output[i].append(rosenbrock)
+    for x in rosenbrock_output:
+        sum_values = sum(x)
+        output.append(sum_values)
+    dim_str = str(dimensions)
+    with open("../"+dim_str+'_dim_output.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        csvWriter = csv.writer(csvfile, delimiter=',')
+        for val in output:
+            csvWriter.writerow([val])
+    return output
