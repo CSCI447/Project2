@@ -36,12 +36,14 @@ class K_Means:
             biggest_shift = 0.0                                                      #measures the shift of the clusters
             for i in range(self.clusterCount):                                       #for each cluster
                 shift = clusters[i].update(lists[i])                                 #calculate delta of the centroid's position
-                print("Cluster " + str(i + 1) + " has " + str(len(lists[i])) + " data points with centroid " + str(clusters[i].centroid.coords))
                 biggest_shift = max(biggest_shift, shift)                            #keep track of the biggest change
-            print("-------------------------------------------------")
             if biggest_shift < self.cutoff:                                          #if the centroids have stopped moving then we have convergence
                 break
+            index = 1
         for i in clusters:
+            print("Cluster " + str(index) + " has " + str(len(i.points)) + " data points with centroid " + str(i.centroid.coords))
+            print("--------------------------------------------------------------")
+            index += 1
             if len(i.points) != 0:
                 i.sigmoid = self.calculate_sigmoid(i)
             if i.sigmoid != 0:

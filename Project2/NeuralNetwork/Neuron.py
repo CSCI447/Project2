@@ -42,6 +42,20 @@ class Neuron:
             weights.append(c.getWeight())
         return weights
 
+    def setWeight(self,weight):
+        for c in self.connections:
+            c.setWeight(weight)
+
+    def setPrevWeight(self,weight):
+        for c in self.connections:
+            c.setPrevWeight(weight)
+
+    def getPrevWeight(self):
+        prev_weights = []
+        for c in self.connections:
+            prev_weights.append(c.getPrevWeight())
+        return prev_weights
+
     def getConnections(self):
         return self.connections
 

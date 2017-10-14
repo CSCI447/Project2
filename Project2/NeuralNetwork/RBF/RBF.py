@@ -11,7 +11,7 @@ from Project2.NeuralNetwork.Connection import Connection
 
 class NN:
 
-    def __init__(self, input_values, expected_output_values, gaussian_amount, output_nodes_amount, learnrate = 0.1, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
+    def __init__(self, input_values, expected_output_values, gaussian_amount, output_nodes_amount, learnrate = 0.5, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
         self.input_values = input_values
         self.expected_output_values = expected_output_values
         self.training, self.testing = self.create_io_pairs(self.input_values, self.expected_output_values)
@@ -38,6 +38,7 @@ class NN:
         self.weighted_sum = 0
         self.error = 0.0
         self.squared_error = 0.0
+        self.delta = 0
 
     def create_io_pairs(self,input,output):
         self.training = []
@@ -107,7 +108,7 @@ class NN:
     def get_centroids_and_betas(self,input_values,output_values, k):
         temp_input = []
         for input in range(len(input_values)):
-            if input < 80:
+            if input < (len(input_values) * 0.8):
                 temp_input.append(input_values[input])
         clusters = K_Means(temp_input,k).get_clusters()
         for i in clusters:
@@ -118,17 +119,28 @@ class NN:
         return self.centroids, self.betas
 
     #step forward through the network and activate hidden layer, calculate weighted sum, calculate error, and update the weights until error is within threshold
-    def forward_prop(self):
+    def forward_prop(self,outfile,epochs):
         self.squared_error = 0
+        self.delta = 0
         for i in self.training:
+            for n in range(self.gaussian_amount):
+                value = self.apply_gaussian(i, self.centroids[n],self.betas[n])  # activation with gaussian function
+                self.hiddenNodes[n].setValue(value)
             self.calculate_weighted_sum()     #output of the network
-            self.squared_error = i.output - self.weighted_sum
+            self.squared_error += self.calculate_squared_error(i.output)
             self.weighted_sum = self.update_weights()
-            self.squared_error = i.output - self.weighted_sum
+            self.squared_error += self.calculate_squared_error(i.output)
             print("\n")
             print('Predicted = ' + str(self.weighted_sum))
             print('Actual = ' + str(i.output))
-            print("Error = " + str(self.squared_error))
+        self.squared_error = self.squared_error / epochs
+        outfile.write("Error = " + str(self.squared_error))
+        outfile.write("\n")
+        print("Error = " + str(self.squared_error))
+        self.delta = self.delta / epochs
+        print("DELTA:" + str(self.delta))
+        outfile.write("DELTA:" + str(self.delta))
+        outfile.write("\n")
         return self.squared_error
 
     #euclidean distance between a given x and a given centroid
@@ -149,42 +161,37 @@ class NN:
     def calculate_weighted_sum(self):
         weighted_sum = 0
         for i in self.hiddenNodes:
-            value = i.value
+            value = i.getValue()
             weights = i.getWeights()
             for j in range(len(weights)):
                 weighted_sum += (value * weights[j])
-        self.weighted_sum = weighted_sum
+        self.weighted_sum = weighted_sum + self.bias
         return self.weighted_sum
 
     #calculate squared error
     def calculate_squared_error(self,input):
-        self.squared_error = input.output - self.weighted_sum
+        self.squared_error = self.weighted_sum - input
         #self.squared_error = math.pow(self.error,2)
         return self.squared_error
 
     #update weights based on error, learning rate, and momentum
     def update_weights(self):
         for neuron in self.hiddenNodes:
-            for c in neuron.getConnections():
-                temp = c.getWeight()
-                weight = c.getWeight()
-                prev_weight = c.getPrevWeight()
-                value = c.getFromNeuron().value
-                weight = weight + (self.learnRate * self.squared_error * value)   # + (self.momentum * (weight - prev_weight))
-                c.setWeight(weight)
-                c.setPrevWeight(temp)
+            temp = neuron.getWeights()[0]
+            weight = neuron.getWeights()[0]
+            prev_weight = neuron.getPrevWeight()[0]
+            value = neuron.value
+            weight = weight + ((1-self.momentum) * self.learnRate * self.squared_error * value) + (self.momentum * (weight - prev_weight))
+            self.delta += math.fabs(weight - prev_weight)
+            neuron.setWeight(weight)
+            neuron.setPrevWeight(temp)
         self.weighted_sum = self.calculate_weighted_sum()
         return self.weighted_sum
 
     #train the model
-    def train(self):
-        for i in self.training:
-            for n in range(self.gaussian_amount):
-                value = self.apply_gaussian(i, self.centroids[n], self.betas[n])  # activation with gaussian function
-                self.hiddenNodes[n].setValue(value)
-        self.forward_prop()
-        while math.fabs(self.squared_error) > self.threshold:
-            self.forward_prop()
+    def train(self,outfile,epochs):
+        for j in range(epochs):
+            self.forward_prop(outfile,epochs)
         print('error=%.3f' % (self.squared_error))
 
     #test the network
@@ -201,7 +208,8 @@ class NN:
         return
 
     def main(self):
-        self.train()
+        outfile = open("out.txt", 'w')
+        self.train(outfile,100)
         #self.test(self.testing)
 
     if __name__ == '__main__':

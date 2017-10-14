@@ -1,0 +1,40 @@
+Cluster 1 has 2147 data points with centroid [6, 7, 8, 2]
+---------------------------------------------------------
+Cluster 2 has 1432 data points with centroid [3, 2, 7, 5]
+---------------------------------------------------------
+Cluster 3 has 825 data points with centroid [4, 2, 2, 2]
+---------------------------------------------------------
+Cluster 4 has 639 data points with centroid [2, 2, 4, 2]
+---------------------------------------------------------
+Cluster 5 has 2630 data points with centroid [7, 4, 8, 8]
+---------------------------------------------------------
+Cluster 6 has 2156 data points with centroid [2, 8, 3, 7]
+---------------------------------------------------------
+Cluster 7 has 1625 data points with centroid [2, 7, 7, 2]
+---------------------------------------------------------
+Cluster 8 has 1600 data points with centroid [2, 2, 4, 8]
+---------------------------------------------------------
+Cluster 9 has 1278 data points with centroid [8, 1, 6, 7]
+---------------------------------------------------------
+Cluster 10 has 1605 data points with centroid [7, 2, 2, 7]
+---------------------------------------------------------
+Cluster 11 has 3268 data points with centroid [7, 8, 7, 6]
+---------------------------------------------------------
+Cluster 12 has 405 data points with centroid [2, 2, 1, 5]
+---------------------------------------------------------
+Cluster 13 has 1020 data points with centroid [5, 7, 1, 7]
+---------------------------------------------------------
+Cluster 14 has 960 data points with centroid [2, 6, 2, 2]
+---------------------------------------------------------
+Cluster 15 has 767 data points with centroid [2, 2, 8, 2]
+---------------------------------------------------------
+Cluster 16 has 1905 data points with centroid [7, 8, 2, 2]
+---------------------------------------------------------
+Cluster 17 has 1472 data points with centroid [8, 2, 8, 2]
+---------------------------------------------------------
+Cluster 18 has 1584 data points with centroid [8, 3, 3, 2]
+---------------------------------------------------------
+Cluster 19 has 2413 data points with centroid [2, 6, 8, 7]
+---------------------------------------------------------
+Cluster 20 has 2269 data points with centroid [8, 7, 3, 8]
+---------------------------------------------------------

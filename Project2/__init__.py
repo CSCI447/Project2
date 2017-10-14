@@ -1,5 +1,4 @@
-# handler for calling both networks
-# need code for inputting the csvs into the input_values and output_values arrays
+
 
 from Project2.NeuralNetwork.RBF.RBF import NN
 import csv
@@ -18,6 +17,6 @@ with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcs
         expectedOutputArray.append(row)
 
 
-rbf = NN(inputArray,expectedOutputArray,3,1)
+rbf = NN(inputArray,expectedOutputArray,10,1)
 
 rbf.main()
