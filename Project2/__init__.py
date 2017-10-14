@@ -9,6 +9,7 @@ expectedOutputArray = []
 with open('NeuralNetwork/Data/2_dim.csv', 'r', encoding='utf-8') as inputcsvfile:
     csv_input = csv.reader(inputcsvfile, delimiter=",")
     for row in csv_input:
+        #row.insert(0,1)
         inputArray.append(row)
 
 with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcsvfile:
@@ -17,6 +18,6 @@ with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcs
         expectedOutputArray.append(row)
 
 
-rbf = NN(inputArray,expectedOutputArray,5,1)
+rbf = NN(inputArray,expectedOutputArray,3,1)
 
 rbf.main()

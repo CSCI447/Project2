@@ -41,7 +41,19 @@ class K_Means:
             print("-------------------------------------------------")
             if biggest_shift < self.cutoff:                                          #if the centroids have stopped moving then we have convergence
                 break
+        for i in clusters:
+            if len(i.points) != 0:
+                i.sigmoid = self.calculate_sigmoid(i)
+            if i.sigmoid != 0:
+                i.beta = 1 / (2 * (math.pow(i.sigmoid, 2)))                                # beta value for gaussian activation function in rbf
         return clusters
+
+    def calculate_sigmoid(self,cluster):                                             # compute sigma or width of cluster
+        euclid_distance_sum = 0
+        for i in cluster.points:
+            euclid_distance_sum += self.get_distance(i,cluster.centroid)
+        cluster.sigmoid = (1/len(cluster.points)) * euclid_distance_sum
+        return cluster.sigmoid
 
     def get_distance(self,a,b):                                                      #euclidean distance between two n-dimensional points
         difference = 0.0
@@ -51,16 +63,33 @@ class K_Means:
         distance = math.sqrt(difference)
         return distance
 
+    def get_clusters(self):
+        return self.clusters
+
     def get_centroids(self):
         centroids = []
         for i in range(len(self.clusters)):
             centroids.append(self.clusters[i].centroid)
         return centroids
 
+    def get_betas(self):
+        betas = []
+        for i in range(len(self.clusters)):
+            centroids.append(self.clusters[i].beta)
+        return betas
+
 class Cluster:
     def __init__(self, centroid):
         self.points = []                                                             #points belonging to this cluster
         self.centroid = centroid                                                     #center point of the cluster
+        self.sigmoid = 0.0
+        self.beta = 1.0
+
+    def get_beta(self):                                                              #returns beta for cluster
+        return self.beta
+
+    def get_centroid(self):
+        return self.centroid
 
     def update(self, points):                                                        #returns the shift of the centroid after updating
         old_centroid = self.centroid
