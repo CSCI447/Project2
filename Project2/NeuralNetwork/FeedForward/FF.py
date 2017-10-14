@@ -162,9 +162,9 @@ class NN:
     def update_error_output(self, out_row):
         for neuron in self.outputNodes:  # for every neuron in the outputNodes
             unprocessed_error = int(self.expected_output_values[out_row][0]) - neuron.getValue()  # get error w/o derivative
-            print(unprocessed_error)
+            #print("output unprocessed output error = %f" % unprocessed_error)
             error_w_pd = unprocessed_error * neuron.transfer_derivative(neuron.getValue())  # get error w derivative
-            print(error_w_pd)
+            #print("output error = %f" % error_w_pd)
             neuron.setError(error_w_pd)  # set as error
 
     def update_weights_output(self):
@@ -192,7 +192,9 @@ class NN:
                     weight = connect.getWeight()
                     error = connect.getToNeuron().getError()
                     unprocessed_error = error * weight  # start at first hidden node, iterate over connections, sum with error and connection weights
+                    #print("hidden unprocessed error = %f" %unprocessed_error)
                     error_w_pd += unprocessed_error * neuron.transfer_derivative(neuron.getValue())
+                    #print("hidden error = %f" % error_w_pd)
             neuron.setError(error_w_pd)
             #Update weights after error has been updated
 
@@ -229,7 +231,7 @@ class NN:
 
             error = (40016 - output)
 
-            print("new epoc")
+            print(error)
 
 
 
