@@ -123,8 +123,6 @@ class NN:
             error_w_pd = unprocessed_error * neuron.transfer_derivative(neuron.getValue())  # get error w derivative
             neuron.setError(error_w_pd)  # set as error
 
-
-
     def update_error_hidden(self):
         # hidden layer error = (weight_k * error_j) * transfer_derivative(output)
         error_w_pd = 0
