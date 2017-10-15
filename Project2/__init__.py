@@ -8,6 +8,7 @@ expectedOutputArray = []
 with codecs.open('NeuralNetwork/Data/2_dim.csv', 'r', encoding='utf-8') as inputcsvfile:
     csv_input = csv.reader(inputcsvfile, delimiter=",")
     for row in csv_input:
+        #print(type(row[0]))
         inputArray.append(row)
 
 with codecs.open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcsvfile:
@@ -16,10 +17,11 @@ with codecs.open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as o
         expectedOutputArray.append(row)
 
 hidden_layer_amount = 1
-hidden_nodes_amount = 4
+hidden_nodes_amount = 30
 output_nodes_amount = 1
 
 feedforward = NN(inputArray, expectedOutputArray, hidden_layer_amount, hidden_nodes_amount, output_nodes_amount)
 
 feedforward.initialize()
-feedforward.train(50)
+feedforward.train\
+    (300)

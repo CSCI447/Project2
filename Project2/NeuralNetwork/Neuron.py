@@ -82,9 +82,12 @@ class Neuron:
     def activate(self, weights, inputs):  #caluculate weights * inputs=
         activation = 0
         for i in range(len(weights)):
-            activation += weights[i] * int(inputs[i])
+            activation += weights[i] * inputs[i]
+        #print(activation)
         return activation
 
     def transfer_derivative(self, output):      #currently output is the value of the node
         return output * (1.0 - output)
 
+    def linear_derivative(self, output):
+        return 1
