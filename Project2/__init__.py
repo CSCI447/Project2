@@ -1,6 +1,6 @@
 
-
-from Project2.NeuralNetwork.RBF.RBF import NN
+from NeuralNetwork import *
+from Project2.NeuralNetwork.RBF.RadialBasis import NN
 import csv
 inputArray = []
 expectedOutputArray = []
@@ -16,7 +16,14 @@ with open('NeuralNetwork/Data/2_dim_out.csv', 'r', encoding='utf-8') as outputcs
     for row in csv_output:
         expectedOutputArray.append(row)
 
+input_nodes_amount = 1
+hidden_layer_amount = 1
+hidden_nodes_amount = 15
+output_nodes_amount = 1
 
-rbf = NN(inputArray,expectedOutputArray,10,1)
+rbf = NN(inputArray,expectedOutputArray,input_nodes_amount,hidden_layer_amount, hidden_nodes_amount, output_nodes_amount)
 
-rbf.main()
+rbf.initialize()
+
+rbf.train(10)
+

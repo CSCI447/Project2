@@ -5,7 +5,7 @@ import math
 class K_Means:
     def __init__(self,input_values,clusterCount):
         self.clusterCount = clusterCount                                             #k
-        self.dataPointCount = 80
+        #self.dataPointCount = 80
         self.cutoff = 0.01  # convergence threshold                                  #fixed
         self.dataPoints = self.form_dataset(input_values)
         self.clusters = self.form_clusters()
@@ -39,9 +39,9 @@ class K_Means:
                 biggest_shift = max(biggest_shift, shift)                            #keep track of the biggest change
             if biggest_shift < self.cutoff:                                          #if the centroids have stopped moving then we have convergence
                 break
-            index = 1
+        index = 1
         for i in clusters:
-            print("Cluster " + str(index) + " has " + str(len(i.points)) + " data points with centroid " + str(i.centroid.coords))
+            print(("Cluster " + str(index) + " has " + str(len(i.points)) + " data points with centroid " + str(i.centroid.coords)))
             print("--------------------------------------------------------------")
             index += 1
             if len(i.points) != 0:
@@ -77,7 +77,7 @@ class K_Means:
     def get_betas(self):
         betas = []
         for i in range(len(self.clusters)):
-            centroids.append(self.clusters[i].beta)
+            betas.append(self.clusters[i].beta)
         return betas
 
 class Cluster:

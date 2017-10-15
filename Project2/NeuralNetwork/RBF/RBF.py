@@ -11,7 +11,7 @@ from Project2.NeuralNetwork.Connection import Connection
 
 class NN:
 
-    def __init__(self, input_values, expected_output_values, gaussian_amount, output_nodes_amount, learnrate = 0.5, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
+    def __init__(self, input_values, expected_output_values, hidden_layer_amount, gaussian_amount, output_nodes_amount, learnrate = 0.0001, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
         self.input_values = input_values
         self.expected_output_values = expected_output_values
         self.training, self.testing = self.create_io_pairs(self.input_values, self.expected_output_values)
@@ -31,14 +31,13 @@ class NN:
         self.betas = []
         self.centroids, self.betas = self.get_centroids_and_betas(input_values, expected_output_values, self.gaussian_amount)
         self.converged = False
-        self.bias = 1.0
+        #self.bias = 1.0
         self.connections = []
         self.network = []
-        self.network = self.initialize()
-        self.weighted_sum = 0
-        self.error = 0.0
-        self.squared_error = 0.0
-        self.delta = 0
+        #self.network = self.initialize()
+        #self.weighted_sum = 0
+        #self.error = 0.0
+        #self.delta = 0
 
     def create_io_pairs(self,input,output):
         self.training = []
@@ -59,7 +58,7 @@ class NN:
         self.build_network()
         self.connect_network()
         self.initialize_weights()
-        return self.network
+
 
     # Build network structure (layers and nodes)
     def build_network(self):
@@ -101,7 +100,7 @@ class NN:
     #initialize weights for only the connections between the hidden layer and the output layer
     def initialize_weights(self):
         for c in self.connections:
-            c.setWeight(random.uniform(0.0,50.0))
+            c.setWeight(random.random())
             c.setPrevWeight(0)
 
     # runs k-means clustering algorithm and returns k number of clusters and their corresponding centroids and betas
@@ -120,28 +119,31 @@ class NN:
 
     #step forward through the network and activate hidden layer, calculate weighted sum, calculate error, and update the weights until error is within threshold
     def forward_prop(self,outfile,epochs):
-        self.squared_error = 0
+        self.error = 0
         self.delta = 0
+        self.weighted_sum = 0
         for i in self.training:
             for n in range(self.gaussian_amount):
                 value = self.apply_gaussian(i, self.centroids[n],self.betas[n])  # activation with gaussian function
                 self.hiddenNodes[n].setValue(value)
-            self.calculate_weighted_sum()     #output of the network
-            self.squared_error += self.calculate_squared_error(i.output)
-            self.weighted_sum = self.update_weights()
-            self.squared_error += self.calculate_squared_error(i.output)
-            print("\n")
-            print('Predicted = ' + str(self.weighted_sum))
-            print('Actual = ' + str(i.output))
-        self.squared_error = self.squared_error / epochs
-        outfile.write("Error = " + str(self.squared_error))
+            self.weighted_sum += self.calculate_weighted_sum()     #output of the network
+            self.error += self.calculate_error(i.output)
+        self.error = self.error  *  1/ len(self.training)
+        self.error = self.error * (self.weighted_sum * (1.0 - self.weighted_sum))  # transfer derivative
+        self.weighted_sum = self.update_weights()
+        #self.error = self.calculate_error(i.output)
+        #print("\n")
+        #print('Predicted = ' + str(self.weighted_sum))
+        #print('Actual = ' + str(i.output))
+        #self.squared_error = self.squared_error / epochs
+        outfile.write("Error = " + str(self.error))
         outfile.write("\n")
-        print("Error = " + str(self.squared_error))
+        print("Error = " + str(self.error))
         self.delta = self.delta / epochs
         print("DELTA:" + str(self.delta))
         outfile.write("DELTA:" + str(self.delta))
         outfile.write("\n")
-        return self.squared_error
+        return self.error
 
     #euclidean distance between a given x and a given centroid
     def calculate_distance(self, x, mu):                                                      #euclidean distance between two n-dimensional points
@@ -169,10 +171,10 @@ class NN:
         return self.weighted_sum
 
     #calculate squared error
-    def calculate_squared_error(self,input):
-        self.squared_error = self.weighted_sum - input
-        #self.squared_error = math.pow(self.error,2)
-        return self.squared_error
+    def calculate_error(self, input):
+        self.error = input - self.weighted_sum
+
+        return self.error
 
     #update weights based on error, learning rate, and momentum
     def update_weights(self):
@@ -181,7 +183,7 @@ class NN:
             weight = neuron.getWeights()[0]
             prev_weight = neuron.getPrevWeight()[0]
             value = neuron.value
-            weight = weight + ((1-self.momentum) * self.learnRate * self.squared_error * value) + (self.momentum * (weight - prev_weight))
+            weight = -self.learnRate     #weight + (self.learnRate * self.error * self.weighted_sum) #+ (weight - prev_weight)
             self.delta += math.fabs(weight - prev_weight)
             neuron.setWeight(weight)
             neuron.setPrevWeight(temp)
@@ -192,7 +194,7 @@ class NN:
     def train(self,outfile,epochs):
         for j in range(epochs):
             self.forward_prop(outfile,epochs)
-        print('error=%.3f' % (self.squared_error))
+        print('error=%.3f' % (self.error))
 
     #test the network
     def test(NN,testing_set):
@@ -201,15 +203,15 @@ class NN:
                 value = NN.apply_gaussian(example, NN.centroids[mu], NN.betas[mu])
                 NN.hiddenNodes[mu].setValue(value)
             NN.calculate_weighted_sum()
-            NN.calculate_squared_error(example)
+            NN.calculate_error(example)
             print('Predicted = ' + str(NN.weighted_sum))
             print('Actual = ' + str(example.output))
-            print("Error = " + str(NN.squared_error))
+            print("Error = " + str(NN.error))
         return
 
     def main(self):
         outfile = open("out.txt", 'w')
-        self.train(outfile,100)
+        self.train(outfile,10)
         #self.test(self.testing)
 
     if __name__ == '__main__':
