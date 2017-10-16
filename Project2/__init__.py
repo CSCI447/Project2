@@ -25,5 +25,5 @@ rbf = NN(inputArray,expectedOutputArray,input_nodes_amount,hidden_layer_amount, 
 
 rbf.initialize()
 
-rbf.train(10)
+rbf.train(50)
 

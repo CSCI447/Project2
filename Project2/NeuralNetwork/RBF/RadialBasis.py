@@ -4,6 +4,8 @@ import math
 
 from Project2.NeuralNetwork.RBF.K_Means import K_Means
 
+from Project2.NeuralNetwork.RBF.CentroidCreator import Centroids
+
 from Project2.NeuralNetwork.Neuron import Neuron
 
 from Project2.NeuralNetwork.Connection import Connection
@@ -11,13 +13,13 @@ from Project2.NeuralNetwork.Connection import Connection
 
 class NN:
 
-    def __init__(self, input_values, expected_output_values, input_nodes_amount,hidden_layer_amount, gaussian_amount, output_nodes_amount, learnrate = .2, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
+    def __init__(self, input_values, expected_output_values, input_nodes_amount,hidden_layer_amount, gaussian_amount, output_nodes_amount, learnrate = 0.0001, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
         self.input_values = input_values
         self.expected_output_values = expected_output_values
         self.training, self.testing = self.create_io_pairs(self.input_values, self.expected_output_values)
         self.hidden_layers_amount = 1
         self.input_nodes_amount = input_nodes_amount
-        self.gaussian_amount = gaussian_amount
+
         self.output_nodes_amount = output_nodes_amount
         #self.answerSet = answers
         self.learnRate = learnrate
@@ -29,8 +31,11 @@ class NN:
         self.hiddenNodes = []
         self.outputNodes = []
         self.centroids = []
-        self.betas = []
-        self.centroids, self.betas = self.get_centroids_and_betas(input_values, expected_output_values, self.gaussian_amount)
+        self.beta = 0.05
+        self.dim = len(input_values[0])
+        self.gaussian_amount = 0
+        self.centroids = self.calculate_centroids(self.dim)
+        #self.centroids, self.betas = self.get_centroids_and_betas(input_values, expected_output_values, self.gaussian_amount)
         self.converged = False
         #self.bias = 1.0
         self.connections = []
@@ -73,7 +78,7 @@ class NN:
             for x in range(self.gaussian_amount):  # currently only 1 hidden layer
                 n = Neuron()
                 n.centroid = self.centroids[x]
-                n.beta = self.betas[x]
+                #n.beta = self.betas[x]
                 #hidden_nodes.append(n)
                 self.hiddenNodes.append(n)
             self.network.append(self.hiddenNodes)  # confirmed correct number of nodes in network
@@ -132,6 +137,11 @@ class NN:
             self.betas.append(beta)
         return self.centroids, self.betas
 
+    def calculate_centroids(self,dim):
+        self.gaussian_amount = Centroids(dim).k
+        print(self.gaussian_amount)
+        return Centroids(dim).get_centroids()
+
     # euclidean distance between a given x and a given centroid
     def calculate_distance(self, x, mu):  # euclidean distance between two n-dimensional points
         difference = 0.0
@@ -162,7 +172,7 @@ class NN:
         for neuron in self.hiddenNodes:
             value = self.inputNodes[0].getValue()
             #print(value)
-            phi = neuron.gauusian(value, neuron.centroid, neuron.beta) # activation with gaussian function
+            phi = neuron.gauusian(value, neuron.centroid, self.beta) # activation with gaussian function
             neuron.setValue(phi)
             #print("hidden node value", neuron.getValue())
 
@@ -202,10 +212,12 @@ class NN:
                     # print('learn_rate=%f' % (self.learnRate))
                     # print('error=%f' % (connection.getToNeuron().getError()))
                     #print('phi value=%f' % (connection.getFromNeuron().getValue()))
-                    new_weight = connection.getWeight() + (self.learnRate * connection.getToNeuron().getError() * connection.getFromNeuron().getValue())  # set weight like the function we talked about
+                    new_weight = connection.getWeight() + ((1 - self.momentum) * self.learnRate * connection.getToNeuron().getError() * connection.getFromNeuron().getValue())  # set weight like the function we talked about
+
                     # print(new_weight)
                     connection.setWeight(new_weight)
                     # print(connection.getWeight())
+
 
     def update(self, out_row):
         self.update_error_output(out_row)
@@ -213,6 +225,8 @@ class NN:
 
     # train a neural network for a certain number of epochs
     def train(self, epochs):
+        outfile = open("out_2_2_dim.txt","w")
+        print("test")
         for epoch in range(epochs):
             # while not(self.converged):
             sum_error = 0
@@ -221,7 +235,9 @@ class NN:
                 output_values = self.forward_prop(row)
                 sum_error += (int(self.expected_output_values[i][0]) - output_values)
                 self.update(i)
-            print('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
+            self.learnRate = self.learnRate + 0.001
+            outfile.write('>epoch=%d, lrate=%.3f, error=%.3f' % (epoch, self.learnRate, sum_error))
+            outfile.write(("\n"))
 
 
     def test(self):

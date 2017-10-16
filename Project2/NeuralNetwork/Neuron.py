@@ -90,8 +90,8 @@ class Neuron:
     #euclidean distance between a given x and a given centroid
     def calculate_distance(self, x, mu):                                                      #euclidean distance between two n-dimensional points
         difference = 0.0
-        for i in range(mu.n):
-            squareDifference = pow(((x[i]) - mu.coords[i]), 2)
+        for i in range(len(mu.position)):
+            squareDifference = pow(((x[i]) - mu.position[i]), 2)
             difference += squareDifference
         distance = sqrt(difference)
         return distance

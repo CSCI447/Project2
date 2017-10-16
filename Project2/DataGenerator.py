@@ -6,7 +6,7 @@ def main():
         for vec in range(dim * 10000):
             vector = []
             for x in range(dim):
-                rand_num = random.randrange(10) + 1  # integers between 1 and 10
+                rand_num = random.randrange(-3,3)   # integers between 1 and 10
                 vector.append(rand_num)
             file.write(str(vector)[1:-1])
             file.write("\n")
