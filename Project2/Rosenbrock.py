@@ -9,8 +9,8 @@ def evaluate(vector):
 def main():
     vector = []
     global outfile
-    outfile = open("NeuralNetwork/Data/6_dim_out.csv", 'w')
-    with open("NeuralNetwork/Data/6_dim.csv", 'r') as file:
+    outfile = open("NeuralNetwork/Data/five_out.csv", 'w')
+    with open("NeuralNetwork/Data/five.csv", 'r') as file:
         for line in file:
             currentline = line.split(",")
             vector = []

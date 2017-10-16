@@ -1,9 +1,9 @@
 import random
 def main():
     vector = []
-    dim = 6
-    with open("NeuralNetwork/Data/6_dim.csv", 'w') as file:
-        for vec in range(dim * 10000):
+    dim = 5
+    with open("NeuralNetwork/Data/five.csv", 'w') as file:
+        for vec in range(5000):
             vector = []
             for x in range(dim):
                 rand_num = random.randrange(-3,3)   # integers between 1 and 10

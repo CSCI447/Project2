@@ -5,7 +5,6 @@ import math
 class K_Means:
     def __init__(self,input_values,clusterCount):
         self.clusterCount = clusterCount                                             #k
-        #self.dataPointCount = 80
         self.cutoff = 0.01  # convergence threshold                                  #fixed
         self.dataPoints = self.form_dataset(input_values)
         self.clusters = self.form_clusters()

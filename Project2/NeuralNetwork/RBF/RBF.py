@@ -8,8 +8,8 @@ from Project2.NeuralNetwork.Neuron import Neuron
 
 from Project2.NeuralNetwork.Connection import Connection
 
-
-class NN:
+#IGNORE THIS FILE, this was a first attempt at the rbf
+class rbf:
 
     def __init__(self, input_values, expected_output_values, hidden_layer_amount, gaussian_amount, output_nodes_amount, learnrate = 0.0001, threshold = 1, momentum = 0.5, maximum = 0, minimum = 1000):
         self.input_values = input_values
@@ -209,13 +209,13 @@ class NN:
             print("Error = " + str(NN.error))
         return
 
-    def main(self):
-        outfile = open("out.txt", 'w')
-        self.train(outfile,10)
+ #  def main(self):
+  #      outfile = open("out.txt", 'w')
+   #     self.train(outfile,10)
         #self.test(self.testing)
 
-    if __name__ == '__main__':
-          main()
+ #   if __name__ == '__main__':
+  #        main()
 
 #bind the inputs with corresponding output from the rosenbrock function
 class Example():
