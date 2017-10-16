@@ -1,7 +1,6 @@
 The following is a list of the files in this project along with the names of the members who contributed to each file:
 
 Rosenbrock.py - Na'Shea, Amy
-DataGenerator.py - Na'Shea, Amy
 
 init.py-All
 
@@ -9,5 +8,4 @@ FeedForward
 -FF.py- Amy, Taylor
 
 RBF
--K_Means.py- Na'Shea
 -RBF.py- Scott, Na'Shea
