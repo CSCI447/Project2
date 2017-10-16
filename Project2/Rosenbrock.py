@@ -29,25 +29,7 @@ def rosenbrock(vector):
     rosenbrock = 0
     for i in range(len(vector) - 1):
         rosenbrock += (((1 - vector[i]) ** 2) + 100 * ((vector[i + 1] - (vector[i] ** 2)) ** 2))
-<<<<<<< HEAD
-    outfile.write(str(rosenbrock))
-    outfile.write('\n')
-
-def main():
-    vector = []
-    global outfile
-    outfile = open("NeuralNetwork/Data/five_out.csv", 'w')
-    with open("NeuralNetwork/Data/five.csv", 'r') as file:
-        for line in file:
-            currentline = line.split(",")
-            vector = []
-            for dim in currentline:
-                vector.append(int(dim))
-            evaluate(vector)
-    file.close()
-=======
     return rosenbrock
->>>>>>> d3097c63dcd6c5f4fe9def27306646912c232da1
 
 #Generates the output based on the input arraylist, and writes the results to a csv file
 def generate_output_list(input_list):
