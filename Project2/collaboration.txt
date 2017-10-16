@@ -1,7 +1,11 @@
 The following is a list of the files in this project along with the names of the members who contributed to each file:
 
+<<<<<<< HEAD
 Rosenbrock.py - Na'Shea
 DataGenerator.py - Na'Shea and Amy
+=======
+Rosenbrock.py - Na'Shea, Amy
+>>>>>>> d3097c63dcd6c5f4fe9def27306646912c232da1
 
 init.py-All
 Neuron.py - Amy, Taylor, Na'Shea
@@ -11,7 +15,11 @@ FeedForward
 -FF.py- Amy, Taylor
 
 RBF
+<<<<<<< HEAD
 -K_Means.py- Na'Shea
 -RadialBasis.py- Scott, Na'Shea
 -CentroidCreator - Taylor,Amy, Na'Shea
 Ignore RBF.py!!!
+=======
+-RBF.py- Scott, Na'Shea
+>>>>>>> d3097c63dcd6c5f4fe9def27306646912c232da1
